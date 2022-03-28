@@ -26,14 +26,3 @@ def generate():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
-# request = {
-# "prompt": "your prompt",
-# "token_count": 128,
-# "temperature": 0.6,
-# "n_gen": 4, // Defines how many alternatives will be returned.
-# }
-# response = {"status": "success",
-# "ai_results": [{"generated_text": "generated text",
-# "text_length": 753}]
-# }
