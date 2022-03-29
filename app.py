@@ -67,7 +67,7 @@ def predict(input_text: str, token_count: int, temperature: float, n_gen: int, k
             text = tokenizer.decode(sample_output, skip_special_tokens=True)
             text = post_processing(text, prompt)
             output['ai_results'].append({'generated_text': text, "text_length": len(text)})
-
+        output['ai_results'].reverse()
     except Exception as e:
         traceback.print_exc()
         output['status'] = 'error'
