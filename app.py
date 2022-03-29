@@ -16,11 +16,14 @@ app = Flask(__name__)
 
 seed_everything(cfg.SEED)
 
+print(f"Loading tokenizer from {cfg.MODEL}")
 tokenizer = get_tokenizer(special_tokens=cfg.SPECIAL_TOKENS)
+print(f"Loading model from {cfg.MODEL}")
 model = get_model(
     tokenizer, 
     special_tokens=cfg.SPECIAL_TOKENS
 )
+print(f"Model successfully loaded from {cfg.MODEL}")
 
 def join_keywords(keywords, randomize=True):
     N = len(keywords)

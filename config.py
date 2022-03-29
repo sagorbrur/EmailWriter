@@ -8,4 +8,6 @@ SPECIAL_TOKENS  = { "bos_token": "<|BOS|>",
                     "pad_token": "<|PAD|>",
                     "sep_token": "<|SEP|>"}
 
-GREET_TOKEN = ["hi", "hey", "hello", "dear"]
+GREET_TOKENS = ["hi", "hey", "hello", "dear"]
+START_GREET = "hi [name]\n"
+CONCLUSION_GREET = "\nsincerely\n[name]"

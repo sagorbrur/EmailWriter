@@ -57,8 +57,22 @@ def remove_special_token(text):
         text = text.replace(token, '')
     return text
 
+def start_with_greet(text, greet):
+    for g in greet:
+        if text.startswith(g):
+            return True, g
+    return False, None
+
 def post_processing(text, prompt):
     # remove prompt first
     text = text.replace(prompt, '')
     text = text.strip()
+    gexist, greet = start_with_greet(text, cfg.GREET_TOKENS)
+    if gexist:
+        regex = f"^{greet}\s?(\w+)?[\.,\s]?"
+        start_greet = greet + " [name]\n"
+        text = re.sub(regex, start_greet, text)
+        text = text + cfg.CONCLUSION_GREET
+    else:
+        text = cfg.START_GREET + text + cfg.CONCLUSION_GREET
     return text
