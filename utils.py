@@ -24,18 +24,21 @@ def get_tokenizer(special_tokens=None):
 def get_model(tokenizer, special_tokens=None, load_model_path=None):
 
     if special_tokens:
-        config = AutoConfig.from_pretrained(cfg.MODEL, 
-                                            bos_token_id=tokenizer.bos_token_id,
-                                            eos_token_id=tokenizer.eos_token_id,
-                                            sep_token_id=tokenizer.sep_token_id,
-                                            pad_token_id=tokenizer.pad_token_id,
-                                            output_hidden_states=False)
+        config = AutoConfig.from_pretrained(
+            cfg.MODEL, 
+            bos_token_id=tokenizer.bos_token_id,
+            eos_token_id=tokenizer.eos_token_id,
+            sep_token_id=tokenizer.sep_token_id,
+            pad_token_id=tokenizer.pad_token_id,
+            output_hidden_states=False
+        )
     else: 
-        config = AutoConfig.from_pretrained(cfg.MODEL,                                     
-                                            pad_token_id=tokenizer.eos_token_id,
-                                            output_hidden_states=False)    
+        config = AutoConfig.from_pretrained(
+            cfg.MODEL,                                     
+            pad_token_id=tokenizer.eos_token_id,
+            output_hidden_states=False
+        )    
 
-    #----------------------------------------------------------------#
     model = AutoModelForPreTraining.from_pretrained(cfg.MODEL, config=config)
 
     if special_tokens:
