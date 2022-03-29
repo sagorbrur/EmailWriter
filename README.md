@@ -8,7 +8,7 @@ pip install -r requirements.txt
 Install pytorch by
 
 ```bash
-conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
+conda install pytorch cudatoolkit=11.3 -c pytorch
 ```
 
 ## Run Application
