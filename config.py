@@ -1,5 +1,5 @@
-SEED = 42
-MODEL = "sagorsarker/emailgenerator"
+SEED = 42 # random seed value
+MODEL = "sagorsarker/emailgenerator" # hf model name
 MAXLEN = 768
 # CUSTOM_MODEL_PATH = "./model/pytorch_model.bin"
 SPECIAL_TOKENS  = { "bos_token": "<|BOS|>",

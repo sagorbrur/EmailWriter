@@ -26,6 +26,15 @@ model = get_model(
 print(f"Model successfully loaded from {cfg.MODEL}")
 
 def join_keywords(keywords, randomize=True):
+    """Join keywords with separator
+
+    Args:
+        keywords (list): list of bullets keywords
+        randomize (bool, optional): randomly take keyword. Defaults to True.
+
+    Returns:
+        str: joined keywords
+    """
     N = len(keywords)
     if randomize: 
         M = random.choice(range(N+1))
@@ -34,7 +43,25 @@ def join_keywords(keywords, randomize=True):
 
     return ','.join(keywords)
 
-def predict(input_text: str, token_count: int, temperature: float, n_gen: int, keywords=None) -> dict:
+def predict(input_text: str, token_count: int, 
+            temperature: float, n_gen: int, 
+            keywords=None) -> dict:
+    """Generate email from input text, keywords and trained model
+
+    Args:
+        input_text (str): input text 
+        token_count (int): number of tokens to be generated
+        temperature (float): temperature for sampling
+        n_gen (int): number of generated emails
+        keywords (list, optional): list of keywords. Defaults to None.
+
+    Returns:
+        dict: generated emails
+        {
+            "status": "success",
+            "ai_results": []
+        }
+    """
     output = {}
     try:
         if keywords:
