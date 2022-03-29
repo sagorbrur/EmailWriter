@@ -14,10 +14,8 @@ def seed_everything(seed):
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = True
 
-# seed_everything(SEED)
-
 def get_tokenizer(special_tokens=None):
-    tokenizer = AutoTokenizer.from_pretrained(cfg.MODEL) #GPT2Tokenizer
+    tokenizer = AutoTokenizer.from_pretrained(cfg.MODEL)
 
     if special_tokens:
         tokenizer.add_special_tokens(special_tokens)
@@ -25,7 +23,6 @@ def get_tokenizer(special_tokens=None):
 
 def get_model(tokenizer, special_tokens=None, load_model_path=None):
 
-    #GPT2LMHeadModel
     if special_tokens:
         config = AutoConfig.from_pretrained(cfg.MODEL, 
                                             bos_token_id=tokenizer.bos_token_id,
@@ -50,3 +47,14 @@ def get_model(tokenizer, special_tokens=None, load_model_path=None):
 
     model.cuda()
     return model
+
+def remove_special_token(text):
+    for key, token in cfg.SPECIAL_TOKENS.items():
+        text = text.replace(token, '')
+    return text
+
+def post_processing(text, prompt):
+    # remove prompt first
+    text = text.replace(prompt, '')
+    text = text.strip()
+    return text

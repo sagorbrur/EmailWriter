@@ -39,7 +39,6 @@ def predict(prompt: str, token_count: int, temperature: float, n_gen: int, keywo
         generated = generated.to(device)
 
         model.eval()
-        # Top-p (nucleus) text generation (10 samples):
         sample_outputs = model.generate(generated, 
                                         do_sample=True,   
                                         min_length=50, 
