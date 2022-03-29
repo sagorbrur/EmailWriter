@@ -19,8 +19,7 @@ seed_everything(cfg.SEED)
 tokenizer = get_tokenizer(special_tokens=cfg.SPECIAL_TOKENS)
 model = get_model(
     tokenizer, 
-    special_tokens=cfg.SPECIAL_TOKENS,
-    load_model_path=cfg.CUSTOM_MODEL_PATH
+    special_tokens=cfg.SPECIAL_TOKENS
 )
 
 def join_keywords(keywords, randomize=True):
