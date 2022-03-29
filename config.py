@@ -1,4 +1,4 @@
-SEED = 42 # random seed value
+SEED = 2020 # random seed value
 MODEL = "sagorsarker/emailgenerator" # hf model name
 MAXLEN = 768
 # CUSTOM_MODEL_PATH = "./model/pytorch_model.bin"
