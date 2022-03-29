@@ -1,15 +1,22 @@
 import torch
 import random
+import traceback
 import config as cfg
-from utils import seed_everything, get_tokenizer, get_model
+from utils import (
+    seed_everything, 
+    get_tokenizer, 
+    get_model, 
+    remove_special_token, 
+    post_processing
+)
 
 from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-model_path = ""
+model_path = "./model/pytorch_model.bin"
 seed_everything(cfg.SEED)
-tokenizer = get_tokenier(special_tokens=cfg.SPECIAL_TOKENS)
+tokenizer = get_tokenizer(special_tokens=cfg.SPECIAL_TOKENS)
 model = get_model(tokenizer, 
                 special_tokens=cfg.SPECIAL_TOKENS,
                 load_model_path=model_path)
@@ -23,7 +30,7 @@ def join_keywords(keywords, randomize=True):
 
     return ','.join(keywords)
 
-def predict(prompt: str, token_count: int, temperature: float, n_gen: int, keywords=None) -> dict:
+def predict(input_text: str, token_count: int, temperature: float, n_gen: int, keywords=None) -> dict:
     output = {}
     try:
         if keywords:
@@ -49,14 +56,16 @@ def predict(prompt: str, token_count: int, temperature: float, n_gen: int, keywo
                                         repetition_penalty=2.0,
                                         num_return_sequences=n_gen
                                         )
-        if sample_outputs:                            
-            output['status'] = 'success'
-            output['ai_results'] = []
-            for i, sample_output in enumerate(sample_outputs):
-                text = tokenizer.decode(sample_output, skip_special_tokens=True)
-                output['ai_results'].append({'generated_text': text, "text_length": len(text)})
+        output['status'] = 'success'
+        output['ai_results'] = []
+        prompt = remove_special_token(prompt)
+        for i, sample_output in enumerate(sample_outputs):
+            text = tokenizer.decode(sample_output, skip_special_tokens=True)
+            text = post_processing(text, prompt)
+            output['ai_results'].append({'generated_text': text, "text_length": len(text)})
 
     except Exception as e:
+        traceback.print_exc()
         output['status'] = 'error'
 
     return output
@@ -73,13 +82,16 @@ def generate():
         token_count = data['token_count']
         temperature = data['temperature']
         n_gen = data['n_gen']
-        response = predict(prompt, token_count, temperature, n_gen)
-        # response = {
-        #     "status": "success",
-        #     "ai_results": [],
-        #     "text_length": 0
-        # }
+        keywords = data['keywords']
+        response = predict(
+            prompt, 
+            token_count, 
+            temperature, 
+            n_gen,
+            keywords
+        )
+    
         return jsonify(response)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(port=5000, debug=True)
