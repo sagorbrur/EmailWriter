@@ -14,12 +14,14 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-model_path = "./model/pytorch_model.bin"
 seed_everything(cfg.SEED)
+
 tokenizer = get_tokenizer(special_tokens=cfg.SPECIAL_TOKENS)
-model = get_model(tokenizer, 
-                special_tokens=cfg.SPECIAL_TOKENS,
-                load_model_path=model_path)
+model = get_model(
+    tokenizer, 
+    special_tokens=cfg.SPECIAL_TOKENS,
+    load_model_path=cfg.CUSTOM_MODEL_PATH
+)
 
 def join_keywords(keywords, randomize=True):
     N = len(keywords)
