@@ -46,3 +46,20 @@ Change input `data` in `tests/test_app.py` to test different inputs.
 ```bash
 python -m tests.test_app
 ```
+or 
+
+```py
+import requests
+
+data = {
+    "prompt": "love to visit again", # subject of the email
+    "token_count": 128,
+    "temperature": 0.6,
+    "n_gen": 4,
+    "keywords": ['experience', 'joyfull', 'sea']
+}
+
+response = requests.post('http://localhost:5000/generate', json=data)
+print(response.json())
+
+```
