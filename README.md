@@ -2,7 +2,7 @@
 Email writer is a [gpt-2](https://github.com/openai/gpt-2) based email generator application. It is a fine-tune version of [gpt-2-medium](https://huggingface.co/gpt2-medium) model which is trained on [this](https://www.kaggle.com/datasets/mikeschmidtavemac/emailblog) datasets.
 
 ## API request and response schema
-```json
+```py
 request = {
     "prompt": str,
     "token_count": int,
