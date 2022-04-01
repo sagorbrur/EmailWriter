@@ -23,12 +23,16 @@ response = {
 ```
 
 ## Installation
+### Method-1
+environment setup using `environment.yml` file
+```
+conda env create -f environment.yml
+conda activate email_writer_env
+```
+### Method-2
 ```bash
 pip install -r requirements.txt
-```
-Install pytorch by
-
-```bash
+# install pytorch >= 1.11
 conda install pytorch cudatoolkit=11.3 -c pytorch
 ```
 
