@@ -37,7 +37,7 @@ conda install pytorch cudatoolkit=11.3 -c pytorch
 ```
 
 ## Run Application
-This is application is based one [Flask](https://flask.palletsprojects.com/en/2.1.x/) framework.
+This application is based one [Flask](https://flask.palletsprojects.com/en/2.1.x/) framework.
 Default port for this application is 5000.
 
 ```bash
@@ -60,7 +60,7 @@ data = {
     "token_count": 128,
     "temperature": 0.6,
     "n_gen": 4,
-    "keywords": ['experience', 'joyfull', 'sea']
+    "keywords": ['experience', 'joyfull', 'sea'] # relevant keywords
 }
 
 response = requests.post('http://localhost:5000/generate', json=data)
